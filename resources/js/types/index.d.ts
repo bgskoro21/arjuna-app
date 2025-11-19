@@ -41,3 +41,26 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface PaginationLink {
+  url: string | null;
+  label: string;
+  active: boolean;
+}
+
+export interface PaginationResult<T> {
+  data: T[];
+  links: PaginationLink[];
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  total: number;
+  from: number;
+  to: number;
+}
+
+export interface Filters {
+  search?: string;
+  sort?: string;
+  direction?: "asc" | "desc";
+}
