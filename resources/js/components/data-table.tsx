@@ -26,7 +26,7 @@ export function DataTable<TData>({
   emptyMessage = "Tidak ada data",
 }: DataTableProps<TData>) {
 
-  const [search, setSearch] = useState(filters.search ?? "");
+  const [search, setSearch] = useState(filters?.search ?? "");
 
   // debounce search
   useEffect(() => {

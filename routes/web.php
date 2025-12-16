@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AttributeController;
+use App\Http\Controllers\AttributeValueController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +29,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::resource('product-categories', ProductCategoryController::class);
+    Route::resource('attributes', AttributeController::class);
+    Route::resource('attributes.values', AttributeValueController::class);
 });
 
 
