@@ -29,6 +29,19 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
+const productNavItem: NavItem[] = [
+    {
+        title: 'Product Categories',
+        href: '/product-categories',
+        icon: Folder,
+    },
+    {
+        title: 'Products',
+        href: '/products',
+        icon: LayoutGrid,
+    },
+];
+
 const footerNavItems: NavItem[] = [
     {
         title: 'Repository',
@@ -58,7 +71,11 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain label='' items={mainNavItems} />
+                <NavMain
+                    label='Products'
+                    items={productNavItem}
+                />
             </SidebarContent>
 
             <SidebarFooter>

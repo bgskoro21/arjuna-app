@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +25,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put("/users/{user}", "update")->name('users.update');
         Route::delete("/users/{user}", "destroy")->name('users.destroy');
     });
+
+    Route::resource('product-categories', ProductCategoryController::class);
 });
 
 
