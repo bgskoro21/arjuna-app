@@ -1,11 +1,12 @@
+import ConfirmDialog from '@/components/confirm-dialog'
 import { DataTable } from '@/components/data-table'
-import DataTableToolbar from '@/components/data-table-toolbar'
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
+import { Button } from '@/components/ui/button'
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem, Filters, PaginationResult, User } from '@/types'
-import { Link, router, usePage } from '@inertiajs/react'
+import { Head, Link, router} from '@inertiajs/react'
 import { ColumnDef } from '@tanstack/react-table'
-import { Plus } from 'lucide-react'
-import React from 'react'
+import { Pencil, Plus, Trash2 } from 'lucide-react'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -65,25 +66,52 @@ const UserPage = ({users, filters}: UserPageProps) => {
       accessorKey: "email",
     },
     {
-      header: "Action",
-      cell: ({ row }) => (
-        <a
-          href={`/users/${row.original.id}`}
-          className="text-indigo-600 hover:underline"
-        >
-          Detail
-        </a>
-      ),
-    },
+        header: "Action",
+        cell: ({ row }) => {
+          const userId = row.original.id;
+
+          return (
+            <div className="flex gap-2">
+              {/* Edit */}
+              <Link href={`/users/${userId}/edit`}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-2"
+                >
+                  <Pencil className="w-4 h-4" />
+                  Detail
+                </Button>
+              </Link>
+
+              {/* Delete */}
+              <ConfirmDialog
+                title="Hapus User?"
+                description="User yang dihapus tidak bisa dikembalikan. Yakin ingin menghapus user ini?"
+                onConfirm={() => router.delete(`/users/${userId}`)}
+                confirmText='Ya, Hapus'
+                trigger={
+                  <Button variant="destructive" size="sm" className="flex items-center gap-2">
+                    <Trash2 className="w-4 h-4" /> Hapus
+                  </Button>
+                }
+              />
+
+            </div>
+        );
+      },
+}
+
   ];
 
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
+      <Head title='Users'/>
       <div className="space-y-4 p-4">
           <div className="flex justify-between">
             <h3 className='text-3xl'>Daftar User</h3>
              <Link
-                href={route('users.index')}
+                href="/users/create"
                 className="
                   inline-flex items-center gap-2 
                   px-4 py-2 rounded-lg 

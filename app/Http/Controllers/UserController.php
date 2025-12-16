@@ -75,4 +75,16 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User berhasil diperbarui.');
     }
+
+    public function destroy(User $user)
+    {
+        if($user->id == auth()->id())
+        {
+            return redirect()->back()->with('error', 'Tidak bisa menghapus user anda sendiri');
+        }
+
+        $user->delete();
+
+        return redirect()->back()->with('success', "User berhasil dihapus.");
+    }
 }
